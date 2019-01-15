@@ -7,7 +7,7 @@ export class Token {
   id: string;
 
   @ManyToOne(type => User, {
-    cascade: true,
+    onDelete: 'CASCADE',
   })
   user: number;
 }
