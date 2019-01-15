@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './auth/services/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserService } from './services/user.service';
+import { UserService } from './users/services/user.service';
 import {config} from 'dotenv';
 
 config();
