@@ -12,11 +12,11 @@ export class UsersController {
     private readonly userService: UserService,
   ) {}
 
-  @Post()
+  @Post('sign-up')
   @UseInterceptors(TransformerInterceptor)
   @OutType(UserEntity)
   @UsePipes(new ValidationPipe())
-  create(@Body() createDto: CreateUserDto) {
-      return this.userService.create(createDto)
+  signUp(@Body() createDto: CreateUserDto) {
+      return this.userService.create(createDto);
   }
 }
