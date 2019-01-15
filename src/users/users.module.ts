@@ -7,6 +7,6 @@ import { Token } from '../models/token.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Token])],
   providers: [UserService],
-  exports: [UserService]
+  exports: [UserService],
 })
 export class UsersModule {}

@@ -14,6 +14,8 @@ const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_service_1 = require("./services/user.service");
+const dotenv_1 = require("dotenv");
+dotenv_1.config();
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -21,11 +23,11 @@ AppModule = __decorate([
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'nest',
-                password: 'test',
-                database: 'test',
+                host: process.env.DB_HOST,
+                port: parseInt(process.env.DB_PORT, 10),
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_DATABASE,
                 entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: true,
             }),

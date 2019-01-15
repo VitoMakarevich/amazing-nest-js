@@ -16,7 +16,7 @@ UsersModule = __decorate([
     common_1.Module({
         imports: [typeorm_1.TypeOrmModule.forFeature([token_entity_1.Token])],
         providers: [user_service_1.UserService],
-        exports: [user_service_1.UserService]
+        exports: [user_service_1.UserService],
     })
 ], UsersModule);
 exports.UsersModule = UsersModule;
