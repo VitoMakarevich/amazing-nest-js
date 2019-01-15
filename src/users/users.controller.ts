@@ -1,9 +1,10 @@
-import { Body, ClassSerializerInterceptor, Controller, Post, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Post, SerializeOptions, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { ValidationPipe } from '../validation/validation-pipe.pipe';
 import {AuthGuard} from '@nestjs/passport';
 import { CreateUserDto } from './schemas/in/create';
 import { UserService } from './services/user.service';
 import { UserEntity } from './schemas/out/user';
+import { OutType, TransformerInterceptor } from '../transformer.interceptor';
 
 @Controller('user')
 export class UsersController {
@@ -12,11 +13,10 @@ export class UsersController {
   ) {}
 
   @Post()
-  @UseGuards(AuthGuard('bearer'))
-  @UseInterceptors(ClassSerializerInterceptor)
-  @UsePipes(ValidationPipe)
-  async create(@Body() createDto: CreateUserDto) {
-    const entity = await this.userService.create(createDto);
-    return new UserEntity(entity);
+  @UseInterceptors(TransformerInterceptor)
+  @OutType(UserEntity)
+  @UsePipes(new ValidationPipe())
+  create(@Body() createDto: CreateUserDto) {
+      return this.userService.create(createDto)
   }
 }
