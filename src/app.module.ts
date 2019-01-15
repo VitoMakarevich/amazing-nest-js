@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './users/services/user.service';
 import {config} from 'dotenv';
+import { ValidationModule } from './validation/validation.module';
 
 config();
 
@@ -24,6 +25,7 @@ config();
     }),
     AuthModule,
     UsersModule,
+    ValidationModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, UserService],

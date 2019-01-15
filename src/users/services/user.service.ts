@@ -2,18 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../models/user.entity';
 import {InjectRepository} from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {Token} from '../../auth/models/token.entity';
+import { CreateUserDto } from '../schemas/create';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(Token)
-    private readonly tokenRepository: Repository<Token>,
+    @InjectRepository(User)
+    private readonly tokenRepository: Repository<User>,
   ) {}
 
-  findByToken(token: string) {
-    return this.tokenRepository.findOne({
-      id: token,
-    });
+  create(createDto: CreateUserDto): Promise<User> {
+    return this.tokenRepository.save(
+      createDto,
+    );
   }
 }
