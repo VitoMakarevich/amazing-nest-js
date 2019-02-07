@@ -25,4 +25,8 @@ export class UserService {
       password: hashedPassword,
     });
   }
+
+  async getAll(): Promise<User[]> {
+    return this.userRepository.find();
+  }
 }

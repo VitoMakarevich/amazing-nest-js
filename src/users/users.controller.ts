@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Post, SerializeOptions, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Post, SerializeOptions, UseGuards, UseInterceptors, UsePipes } from '@nestjs/common';
 import { ValidationPipe } from '../validation/validation-pipe.pipe';
 import {AuthGuard} from '@nestjs/passport';
 import { CreateUserDto } from './schemas/in/create';
@@ -18,5 +18,12 @@ export class UsersController {
   @UsePipes(new ValidationPipe())
   signUp(@Body() createDto: CreateUserDto) {
       return this.userService.create(createDto);
+  }
+
+  @Get('/')
+  @UseInterceptors(TransformerInterceptor)
+  @OutType(UserEntity)
+  getAllUsers() {
+    return this.userService.getAll();
   }
 }

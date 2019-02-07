@@ -5,6 +5,7 @@ import { User } from './models/user.entity';
 import { UsersController } from './users.controller';
 
 @Module({
+
   imports: [
     TypeOrmModule.forFeature([User]),
     ValidationPipe,
