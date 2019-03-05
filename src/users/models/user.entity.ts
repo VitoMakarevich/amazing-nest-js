@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, InsertEvent, BeforeInsert } from 'typeorm';
+import { Inject, Optional } from '@nestjs/common';
+import { ELASTIC_CONNECTION } from '../../app.providers';
 
 @Entity()
 export class User {
@@ -8,8 +10,15 @@ export class User {
   @Column({ length: 500 })
   name: string;
 
-  @Column()
+  @Column({
+    select: false,
+  })
   password: string;
+
+  @Column({
+    nullable: true,
+  })
+  description?: string
 
   @Column()
   salt: string;

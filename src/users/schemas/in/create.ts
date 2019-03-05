@@ -14,4 +14,7 @@ export class CreateUserDto {
     required: true,
   })
   readonly password: string;
+
+  @IsString()
+  readonly description?: string;
 }

@@ -35,21 +35,22 @@ export class TransformerInterceptor implements NestInterceptor {
   }
 
   serialize(
-    response: PlainLiteralObject | Array<PlainLiteralObject>,
+    response: PlainLiteralObject | PlainLiteralObject[],
     context: ExecutionContext,
   ): PlainLiteralObject | PlainLiteralObject[] {
     const OutTypeValue: any = this.getContextOptions(context);
     const isArray = Array.isArray(response);
     return isArray
       ? (response as PlainLiteralObject[]).map(item =>
-        new OutTypeValue(item),
+        this.transformToPlain(new OutTypeValue(item)),
       )
-      : new OutTypeValue(response);
+      : this.transformToPlain(new OutTypeValue(response));
   }
 
   transformToPlain(
     plainOrClass,
   ): PlainLiteralObject {
+    console.log(123)
     return plainOrClass && plainOrClass.constructor !== Object
       ? classToPlain(plainOrClass)
       : plainOrClass;
